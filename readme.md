@@ -17,26 +17,30 @@ GraphQL represents data in the form of Graph wherein each node represent a data 
 ```type Actor {
   id: ID!
   name: String!
-}```
+}
+```
 
 ```type Movie {
   id: ID!
   title: String!
   actors: [Actor]
   year: Int!
-}```
+}
+```
 Note: The exclamation mark signifies that the field is required.
 
 # Creating Queries
 (onside movies.py)
 A query specifies what data can be retrieved and what's required to get to it:
 
-```type Query {
+```
+  type Query {
   actor(id: ID!): Actor
   movie(id: ID!): Movie
   actors: [Actor]
   movies: [Movie]
-}```
+}
+```
 
 -----------------------------------------
 As with the GraphQL schema, the Actor model has a name whereas the Movie model has a title, a many-to-many relationship with the actors and a year. The IDs are automatically generated for us by Django.
@@ -46,7 +50,9 @@ As with the GraphQL schema, the Actor model has a name whereas the Movie model h
 After we build our API, we'll want to be able to perform queries to test if it works. Let's load some data into our database, save the following JSON as data.json in project's root directory.
 
 then run the following command:
-```python manage.py loaddata movies.json```
+```
+python manage.py loaddata movies.json
+```
 
 -------------------------------------------
 
@@ -59,12 +65,14 @@ Consider the 'resolve_actor' function. We retrieve the ID from the query paramet
 ## Testing the api:
 url: http://127.0.0.1:8000/graphql/
 
-```query getActors {
+```
+query getActors {
   actors {
     id
     name
   }
-}```
+}
+```
 result:
 ```
 {
@@ -82,6 +90,7 @@ result:
   }
 }
 ```
+
 ```
 query getMovie {
   movie(id: 1) {
@@ -94,7 +103,9 @@ query getMovie {
 }
 
 ```
+
 result(don't want to show id and year for the movie)
+
 ```
 {
   "data": {
